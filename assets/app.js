@@ -9,3 +9,5 @@ import './bootstrap';
 require('bootstrap-icons/font/bootstrap-icons.css');
 
 import jquery from 'jquery';
+const $ = require('jquery');
+global.$ = global.jQuery = $;
