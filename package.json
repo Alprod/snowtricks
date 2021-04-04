@@ -1,0 +1,40 @@
+{
+    "name": "alain-package",
+    "license": "UNLICENSED",
+    "description": "Mon package Symfony projet site communautaire snowboard",
+    "private": true,
+    "devDependencies": {
+        "@babel/core": "^7.13.14",
+        "@symfony/stimulus-bridge": "^2.0.0",
+        "@symfony/webpack-encore": "^1.0.0",
+        "@vue/babel-helper-vue-jsx-merge-props": "^1.2.1",
+        "@vue/babel-preset-jsx": "^1.2.4",
+        "autoprefixer": "^10.2.5",
+        "core-js": "^3.0.0",
+        "file-loader": "^6.0.0",
+        "postcss": "^8.1.0",
+        "postcss-loader": "^5.2.0",
+        "regenerator-runtime": "^0.13.2",
+        "sass": "^1.32.8",
+        "sass-loader": "^10.0.0",
+        "stimulus": "^2.0.0",
+        "webpack-notifier": "^1.6.0"
+    },
+    "dependencies": {
+        "bootstrap": "^4.6.0",
+        "bootstrap-icons": "^1.4.1",
+        "css-loader": "*",
+        "jquery": "^3.6.0",
+        "popper.js": "^1.16.1",
+        "webpack": "^5.30.0"
+    },
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "browserslist": [
+        "defaults"
+    ]
+}
