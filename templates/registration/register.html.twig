@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h1 class="h3 my-5 mb-3 font-weight-normal text-center">Inscription</h1>
+
+    {{ form_start(registrationForm) }}
+    <div class="d-flex flex-column align-items-center">
+        <div class="w-50 form-floating mb-4">
+            {{ form_widget(registrationForm.firstname) }}
+            {{ form_label(registrationForm.firstname,'Nom') }}
+       </div>
+        <div class="w-50 form-floating mb-4">
+            {{ form_widget(registrationForm.lastname) }}
+            {{ form_label(registrationForm.lastname,'Prénom') }}
+        </div>
+        <div class="w-50 form-floating mb-4">
+            {{ form_widget(registrationForm.pseudo) }}
+            {{ form_label(registrationForm.pseudo,'Pseudo') }}
+        </div>
+        <div class="w-50 form-floating mb-4">
+            {{ form_widget(registrationForm.email) }}
+            {{ form_label(registrationForm.email,'Email') }}
+        </div>
+        <div class="w-50 form-floating mb-4">
+            {{ form_widget(registrationForm.password) }}
+            {{ form_label(registrationForm.password,'Password') }}
+        </div>
+        <div class="w-50 form-floating mb-4">
+            {{ form_widget(registrationForm.confirm_password) }}
+            {{ form_label(registrationForm.confirm_password,'Confirmer le mot passe') }}
+        </div>
+            
+        {{ form_row(registrationForm.avatar, {'attr':{'class':'form-control mb-2'}, 'label_attr':{'class':'mt-5'}}) }}
+        
+        
+        <button type="submit" class="btn btn-primary mb-5">Enregistrer</button>
+    </div>
+    {{ form_end(registrationForm) }}
+{% endblock %}

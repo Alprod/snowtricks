@@ -18,16 +18,16 @@
 <body>
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">SnowTricks</a>
+            <a class="navbar-brand" href="{{ path('home')}}">SnowTricks</a>
             <ul class="nav justify-content-end text-dark">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" aria-current="page" href="#">Home</a>
+                    <a class="nav-link text-dark" aria-current="page" href="{{ path('home')}}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="#">Tricks</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Register</a>
+                    <a class="nav-link text-dark" href="{{ path('app_register')}}">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="#">Sign in</a>
