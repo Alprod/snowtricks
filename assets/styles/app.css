@@ -1,1 +1,33 @@
+input[type=email],
+input[type=text],
+input[type=password] {
+    box-shadow: none;
+    /* margin-top: 30px; */
+    border-bottom: 1px solid #dfe6e9;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
 
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=text]:focus {
+    box-shadow: none;
+}
+
+label {
+    margin-bottom: 60px;
+}
+
+label[for=registration_form_avatar]{
+    margin-bottom: 10px;
+}
+
+.form-error-icon,
+.form-error-massage {
+    display: none !important;
+}
+.invalid-feedback {
+    margin-top: 2.5rem !important;  
+}
