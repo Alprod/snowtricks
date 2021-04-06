@@ -1,1 +1,13 @@
+@import "custom";
 @import "~bootstrap/scss/bootstrap";
+
+$form-validation-states: (
+  "valid": (
+    "color": $form-feedback-valid-color,
+    "icon": none
+  ),
+  "invalid": (
+    "color": $form-feedback-invalid-color,
+    "icon": none
+  )
+);

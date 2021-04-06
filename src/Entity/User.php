@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Cette Email est déjà utiliser")
  */
 class User implements UserInterface
 {
@@ -20,6 +23,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="Désolé mais {{ value }} n'est pas valid")
      */
     private $email;
 
@@ -31,8 +35,14 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\EqualTo(propertyPath="confirm_password")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Le mot de passe doit être identique")
+     */
+    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -59,10 +69,17 @@ class User implements UserInterface
      */
     private $created_at;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
     public function __construct()
     {
+        
         $this->created_at = new \DateTimeImmutable();
     }
+
 
     public function getId(): ?int
     {
@@ -201,6 +218,18 @@ class User implements UserInterface
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
