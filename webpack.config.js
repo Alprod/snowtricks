@@ -16,6 +16,14 @@ Encore
         to: 'images/[path][name].[hash:8].[ext]',
         pattern: /\.(png|jpg|jpeg)$/
     })
+
+    .copyFiles({
+        from: './assets/avatars',
+        //to: 'images/[path][name].[ext]',
+        to: 'avatars/[path][name].[hash:8].[ext]',
+        pattern: /\.(png|jpg|jpeg)$/
+    })
+    
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy

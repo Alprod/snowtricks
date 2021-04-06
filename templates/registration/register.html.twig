@@ -37,6 +37,9 @@
         </div>
             
         {{ form_row(registrationForm.avatar, {'attr':{'class':'form-control mb-2'}, 'label_attr':{'class':'mt-5'}}) }}
+        {# {% if error %}
+            <span class="fw-light text-danger">{{ error }}</span>
+        {% endif %} #}
         
         
         <button type="submit" class="btn btn-primary mb-5">Enregistrer</button>
