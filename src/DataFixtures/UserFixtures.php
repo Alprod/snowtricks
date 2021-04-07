@@ -26,7 +26,7 @@ class UserFixtures extends Fixture
 
             $user->setFirstname($faker->firstName())
                 ->setLastname($faker->lastName())
-                ->setRoles(['ROLE_USER'])
+                ->setRoles($user->getRoles())
                 ->setEmail($faker->freeEmail())
                 ->setPseudo($faker->word())
                 ->setPassword($hash)
