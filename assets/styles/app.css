@@ -20,8 +20,10 @@ label {
     margin-bottom: 60px;
 }
 
-label[for=registration_form_avatar]{
-    margin-bottom: 10px;
+label[for=registration_form_avatar],
+label[for=inputEmail],
+label[for=inputPassword]{
+    margin-bottom: 10px !important;
 }
 
 .form-error-icon,

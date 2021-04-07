@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
-use App\Services\FileUploader;
+use App\Service\FileUploader;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +44,7 @@ class RegistrationController extends AbstractController
             $linkFileAvatar = $form->get('avatar')->getData();
 
             if($linkFileAvatar) {
-                $avatarFileName = $fileUploader->upload($linkFileAvatar, 'registration/register.html.twig');
+                $avatarFileName = $fileUploader->upload($linkFileAvatar, 'app_register');
                 $user->setAvatar($avatarFileName);
             }
 
@@ -62,7 +62,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [
