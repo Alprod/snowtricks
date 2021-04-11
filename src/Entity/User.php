@@ -35,14 +35,9 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\EqualTo(propertyPath="confirm_password")
+     *
      */
     private $password;
-
-    /**
-     * @Assert\EqualTo(propertyPath="password", message="Le mot de passe doit être identique")
-     */
-    public $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

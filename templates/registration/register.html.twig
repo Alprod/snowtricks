@@ -28,20 +28,21 @@
             {{ form_label(registrationForm.email,'Email') }}
         </div>
         <div class="w-50 form-floating mb-4">
-            {{ form_widget(registrationForm.password) }}
-            {{ form_label(registrationForm.password,'Password') }}
+            {{ form_widget(registrationForm.password.first) }}
+            {{ form_label(registrationForm.password.first,'Mot de passe') }}
         </div>
         <div class="w-50 form-floating mb-4">
-            {{ form_widget(registrationForm.confirm_password) }}
-            {{ form_label(registrationForm.confirm_password,'Confirmer le mot passe') }}
+            {{ form_widget(registrationForm.password.second) }}
+            {{ form_label(registrationForm.password.second,'Répéter le mot de passe') }}
         </div>
-            
+
+
         {{ form_row(registrationForm.avatar, {'attr':{'class':'form-control mb-2'}, 'label_attr':{'class':'mt-5'}}) }}
         {# {% if error %}
             <span class="fw-light text-danger">{{ error }}</span>
         {% endif %} #}
-        
-        
+
+
         <button type="submit" class="btn btn-primary mb-5">Enregistrer</button>
     </div>
     {{ form_end(registrationForm) }}
