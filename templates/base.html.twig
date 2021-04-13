@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 
     {% block javascripts %}
@@ -24,7 +23,7 @@
                     <a class="nav-link text-dark" aria-current="page" href="{{ path('home')}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Tricks</a>
+                    <a class="nav-link text-dark" href="{{ path('figure') }}">Tricks</a>
                 </li>
                 {% if not app.user %}
                 <li class="nav-item">
