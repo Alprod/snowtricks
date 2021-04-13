@@ -14,7 +14,7 @@ final class Version20210405014903 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Ajout d\'un champs de verification';
     }
 
     public function up(Schema $schema) : void
