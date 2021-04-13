@@ -34,3 +34,5 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%images_avatar%'
+
+    Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
