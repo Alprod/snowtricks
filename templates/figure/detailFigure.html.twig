@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  {% endblock %}
+{% block body %}
+    <div class="row row-cols-1">
+        <div class="col"><p class="text-center">Image Layout</p></div>
+        <div class="col p-4"><h1 class="text-center ">{{ figuresId.title }}</h1></div>
+        <div class="col">
+            <p class="p-3">{{ figuresId.description }}</p>
+        </div>
+        <div class="col"><p class="text-center">Images en plus</p></div>
+        <div class="col"><p class="text-center">Vidéo Youtube</p></div>
+        <div class="col">
+            <div class="row row-cols-12">
+                <div class="col-2">Rédiger par {{ figuresId.author }}</div>
+                <div class="col-10">le : {{ figuresId.createdAt | date('d/m/Y à H:i') }}</div>
+            </div>
+        </div>
+        <div class="col"><p class="text-center">Form Discussion</p></div>
+        <div class="col"><p class="text-center">List Discussion</p></div>
+    </div>
+{% endblock %}

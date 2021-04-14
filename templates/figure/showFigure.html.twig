@@ -17,7 +17,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{{ figure.title }}</h5>
-                            <a href="#" class="btn btn-dark">Voir détail</a>
+                            <a href="{{ path('detail_figure', {id: figure.id}) }}" class="btn btn-dark btn-sm">Voir détail</a>
                         </div>
                     </div>
                 </div>
