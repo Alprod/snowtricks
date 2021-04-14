@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Figure;
 use Faker\Factory;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
@@ -20,7 +21,7 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
         
-        for ($i=0; $i < 10; $i++) { 
+        for ($i=1; $i < 15; $i++) {
             $user = new User();
             $hash = $this->_passwordEncoder->encodePassword($user, 'password');
 

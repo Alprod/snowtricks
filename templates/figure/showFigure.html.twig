@@ -4,4 +4,21 @@
 
 {% block body %}
     <h1 class="mt-5 title">{{ titre }}</h1>
+    {% if app.user %}
+        <div class="mt-5 mb-4">
+            <a href="#" class="btn btn-dark">Créer une figure</a>
+        </div>
+    {% endif %}
+    <section class="mt-5">
+        {% if figures %}
+            {% for figure in figures %}
+                <h2>{{ figure.title }}</h2>
+                <div class="mt-2 mb-2">
+                    <a href="#" class="btn btn-dark">Voir détail</a>
+                </div>
+            {% endfor %}
+        {% else %}
+        <p>Désolé mais pour le moment aucune figure.</p>
+        {% endif %}
+    </section>
 {% endblock %}
