@@ -2,7 +2,7 @@
 
 {% block title %}  {% endblock %}
 {% block body %}
-    <div class="row row-cols-1">
+    <div class="row row-cols-1 mt-5">
         <div class="col"><p class="text-center">Image Layout</p></div>
         <div class="col p-4"><h1 class="text-center ">{{ figuresId.title }}</h1></div>
         <div class="col">
@@ -11,12 +11,26 @@
         <div class="col"><p class="text-center">Images en plus</p></div>
         <div class="col"><p class="text-center">Vidéo Youtube</p></div>
         <div class="col">
-            <div class="row row-cols-12">
-                <div class="col-2">Rédiger par {{ figuresId.author }}</div>
-                <div class="col-10">le : {{ figuresId.createdAt | date('d/m/Y à H:i') }}</div>
+            <div class="row row-cols-12 m-3">
+                <div class="col-2">Rédiger par <span class="fw-bold fst-italic">{{ figuresId.author }}</span></div>
+                <div class="col-3">le : <span class="fw-bold fst-italic">{{ figuresId.createdAt | date('d/m/Y à H:i') }}</span></div>
+                <div class="col-7">Group figure <span class="fw-bold fst-italic">{{ figuresId.category.title }}</div>
             </div>
         </div>
         <div class="col"><p class="text-center">Form Discussion</p></div>
-        <div class="col"><p class="text-center">List Discussion</p></div>
+        <div class="col">
+            {% for discussion in figuresId.discussions %}
+            <div class="d-flex align-items-center border-0 shadow rounded-3 p-3 m-auto w-75">
+                    <div class="flex-shrink-0">
+                        <img class="rounded-circle" src="https://picsum.photos/id/104/90/90" alt="...">
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <p>Écrit par : {{ discussion.author }}  <span class="text-muted fst-italic"> le : {{ discussion.createdAt | date('d-m-Y') }}</span></p>
+                        <hr>
+                        <p>{{ discussion.content }}</p>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

@@ -33,7 +33,7 @@ class Discussion
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Figure::class, inversedBy="discussions")
+     * @ORM\ManyToOne(targetEntity=Figure::class, inversedBy="discussions", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;

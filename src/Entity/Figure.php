@@ -51,7 +51,7 @@ class Figure
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="figure", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="figure", orphanRemoval=true, fetch="EAGER")
      */
     private $discussions;
 

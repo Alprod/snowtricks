@@ -11,6 +11,7 @@
     {% endif %}
     <section class="mt-5">
         {% if figures %}
+            <h3>{{ figures|length }} Figures publiées a se jours</h3>
             <div class="row row-cols-1 row-cols-md-4 g-3">
             {% for figure in figures %}
                 <div class="col">
