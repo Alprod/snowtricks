@@ -21,11 +21,11 @@ class FigureFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($category);
 
-            for($i = 1; $i < mt_rand(6, 10); $i++) {
+            for($i = 1; $i <= 5; $i++) {
                 $figure = new Figure();
                 $figure->setTitle($faker->sentence(3))
-                    ->setDescription($faker->realText(200,2))
-                    ->setAuthor($this->getReference('User_'.$i)->getPseudo())
+                    ->setDescription($faker->realText(400,2))
+                    ->setAuthor($this->getReference('User_'.$i)->getFirstname())
                     ->setCategory($category)
                     ->setCreatedAt($faker->dateTimeBetween('-1 years'));
 

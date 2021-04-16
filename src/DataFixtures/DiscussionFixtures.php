@@ -16,7 +16,7 @@ class DiscussionFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
-        for($i = 1; $i <= mt_rand(4, 8); $i++) {
+        for($i = 1; $i <= 4 ; $i++) {
             $discute = new Discussion();
             $refFigure = $this->getReference('Figure_'.$i);
             $dateFigure = $refFigure->getCreatedAt();

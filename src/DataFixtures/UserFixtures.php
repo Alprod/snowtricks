@@ -21,7 +21,7 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
         
-        for ($i=1; $i <= 15; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             $user = new User();
             $hash = $this->_passwordEncoder->encodePassword($user, 'password');
 
