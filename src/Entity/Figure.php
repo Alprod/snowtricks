@@ -56,12 +56,12 @@ class Figure
     private $discussions;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure")
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure", fetch="EAGER")
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure", fetch="EAGER")
      */
     private $videos;
 

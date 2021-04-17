@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Figure;
+use App\Entity\Image;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -31,8 +32,16 @@ class FigureFixtures extends Fixture implements DependentFixtureInterface
 
                 $manager->persist($figure);
                 $this->setReference('Figure_'.$i, $figure);
+                for($img = 1; $img <= 5; $img++) {
+                    $image = new Image();
+                    $image->setTitle($faker->words(3, true))
+                        ->setLink($faker->imageUrl(350,150))
+                        ->setFigure($figure);
+                    $manager->persist($image);
+                }
             }
         }
+
 
         $manager->flush();
     }
