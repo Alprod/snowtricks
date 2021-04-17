@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %} Création {% endblock %}
+{% block body %}
+    <h1 class="mt-5">Création d'une figure</h1>
+    <div class="mx-auto my-auto w-75">
+    {{ form_start(formFigure) }}
+            <div class="w-75 form-floating mb-4 m-auto">
+                {{ form_widget(formFigure.title) }}
+                {{ form_label(formFigure.title,'Titre') }}
+            </div>
+            <div class="w-75 form-floating mb-4 m-auto">
+                {{ form_widget(formFigure.description) }}
+                {{ form_label(formFigure.description,'Description') }}
+            </div>
+            <div class="w-75 form-floating mb-4 m-auto">
+                {{ form_widget(formFigure.category) }}
+                {{ form_label(formFigure.category,'Catégorie') }}
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" class="btn btn-outline-dark">Enregistrer</button>
+            </div>
+        {{ form_end(formFigure) }}
+    </div>
+
+{% endblock %}
