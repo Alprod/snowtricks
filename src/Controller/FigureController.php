@@ -44,15 +44,22 @@ class FigureController extends AbstractController
 
     /**
      * @Route("figure/new", name="figure_create")
+     * @Route("figure/{id}/edit", name="figure_edit")
+     * @noinspection PhpOptionalBeforeRequiredParametersInspection
      */
-    public function creatFigure(Request $request,EntityManagerInterface $manager): Response
+    public function formFigure(Figure $figure = null ,Request $request,EntityManagerInterface $manager): Response
     {
-        $figure = new Figure();
+        if(!$figure){
+            $figure = new Figure();
+        }
         $formFigure = $this->createForm(FigureType::class, $figure);
         $formFigure->handleRequest($request);
+
         if($formFigure->isSubmitted() && $formFigure->isValid()) {
-            $figure->setAuthor($this->getUser()->getfirstname())
-                ->setCreatedAt(new \DateTime());
+            if(!$figure->getId()) {
+                $figure->setAuthor($this->getUser()->getfirstname())
+                    ->setCreatedAt(new \DateTime());
+            }
             $manager->persist($figure);
             $manager->flush();
             return $this->redirectToRoute('detail_figure', [
@@ -61,7 +68,8 @@ class FigureController extends AbstractController
         }
 
         return $this->render('figure/form/create.html.twig', [
-            'formFigure' => $formFigure->createView()
+            'formFigure' => $formFigure->createView(),
+            'editMode' => $figure->getId() !== null
         ]);
     }
 }

@@ -17,15 +17,11 @@ class FigureType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('description', TextareaType::class, [
-                'attr' => [
-                    'rows' => 5
-                ]
-            ])
+            ->add('description', TextareaType::class)
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => function(Category $category){
-                    return $category->getTitle();
+                    return $category ? $category->getTitle() : '';
                 }
             ])
         ;

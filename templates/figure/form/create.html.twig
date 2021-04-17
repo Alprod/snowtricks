@@ -1,23 +1,58 @@
 {% extends 'base.html.twig' %}
 {% block title %} Création {% endblock %}
 {% block body %}
-    <h1 class="mt-5">Création d'une figure</h1>
-    <div class="mx-auto my-auto w-75">
+    <h1 class="mt-5 mb-5">
+        {% if editMode %}
+            Mise à jour d'une figure
+        {% else %}
+            Création d'une figure
+        {% endif %}
+
+    </h1>
+    <div class="mx-auto my-5 w-75">
     {{ form_start(formFigure) }}
             <div class="w-75 form-floating mb-4 m-auto">
-                {{ form_widget(formFigure.title) }}
-                {{ form_label(formFigure.title,'Titre') }}
+                {{ form_row(formFigure.title, {
+                    'attr':{
+                        'class': 'form-control'},
+                    'label': 'Titre',
+                    'label_attr': {
+                        'class': 'mb-1'
+                        }
+                    }
+                ) }}
             </div>
             <div class="w-75 form-floating mb-4 m-auto">
-                {{ form_widget(formFigure.description) }}
-                {{ form_label(formFigure.description,'Description') }}
+                {{ form_row(formFigure.description, {
+                    'attr':{
+                        'rows': '10',
+                        'class': 'form-control mb-1'},
+                    'label': 'Description',
+                    'label_attr': {
+                        'class': 'mb-1 mt-3'
+                    }
+                    }
+                ) }}
             </div>
             <div class="w-75 form-floating mb-4 m-auto">
-                {{ form_widget(formFigure.category) }}
-                {{ form_label(formFigure.category,'Catégorie') }}
+                {{ form_row(formFigure.category, {
+                    'attr':{
+                        'class': 'form-control'},
+                    'label': 'Catégorie',
+                    'label_attr': {
+                        'class': 'mb-1 mt-3'
+                    }
+                    }
+                ) }}
             </div>
-            <div class="d-grid gap-2 col-6 mx-auto">
-                <button type="submit" class="btn btn-outline-dark">Enregistrer</button>
+            <div class="d-grid gap-2 col-6 mx-auto mt-5">
+                <button type="submit" class="btn btn-outline-dark">
+                    {% if editMode %}
+                        Enregistrer
+                    {% else %}
+                        Ajouter la figure
+                    {% endif %}
+                </button>
             </div>
         {{ form_end(formFigure) }}
     </div>

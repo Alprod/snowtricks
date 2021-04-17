@@ -46,10 +46,16 @@
         </div>
 
         <div class="col">
-            <div class="row row-cols-sm-1 row-cols-md-3 m-3">
+            <div class="row row-cols-sm-1 row-cols-md-3 m-5">
                 <div class="col">Rédiger par <span class="fw-bold fst-italic">{{ figuresId.author }}</span></div>
                 <div class="col">le : <span class="fw-bold fst-italic">{{ figuresId.createdAt | date('d/m/Y à H:i') }}</span></div>
                 <div class="col">Groupe figure <span class="fw-bold fst-italic">{{ figuresId.category.title }}</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center my-5">
+                <a href="{{ path('figure_edit', {id: figuresId.id}) }}" class="btn btn-dark me-md-2" type="button">Mettre a jour</a>
+                <a href="#" class="btn btn-danger" type="button">Supprimer</a>
             </div>
         </div>
         <div class="col"><p class="text-center">Form Discussion</p></div>
