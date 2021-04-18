@@ -6,8 +6,9 @@ use App\Entity\Figure;
 use App\Form\FigureType;
 use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FigureController extends AbstractController
 {
     /**
-     *@Route("/figure", name="figure")
+     *@Route("/figure", name="figure", methods={"GET"})
      */
     public function show(FigureRepository $repo): Response
     {
@@ -31,7 +32,7 @@ class FigureController extends AbstractController
 
 
     /**
-     * @Route("/figure/{id}", name="detail_figure", requirements={"id"="\d+"})
+     * @Route("/figure/{id}", name="detail_figure", methods={"GET"})
      * @param Figure $figureId
      * @return Response
      */
@@ -43,8 +44,8 @@ class FigureController extends AbstractController
     }
 
     /**
-     * @Route("figure/new", name="figure_create")
-     * @Route("figure/{id}/edit", name="figure_edit")
+     * @Route("figure/new", name="figure_create", methods={"GET","POST"})
+     * @Route("figure/{id}/edit", name="figure_edit", methods={"GET","POST"})
      * @noinspection PhpOptionalBeforeRequiredParametersInspection
      */
     public function formFigure(Figure $figure = null ,Request $request,EntityManagerInterface $manager): Response
@@ -71,5 +72,21 @@ class FigureController extends AbstractController
             'formFigure' => $formFigure->createView(),
             'editMode' => $figure->getId() !== null
         ]);
+    }
+
+    /**
+     *@Route("figure/{id<\d+>}/delete", name="figure_delete")
+     *@ParamConverter("id", class="App\Entity\Figure", options={"id": "id"})
+     */
+    public function deleteFigure(Request $request, Figure $figure): Response
+    {
+        $submittedToken = $request->request->get('token');
+        if($this->isCsrfTokenValid('delete_figure'.$figure->getId(), $submittedToken)) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($figure);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('figure');
     }
 }
