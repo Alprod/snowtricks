@@ -56,12 +56,12 @@ class Figure
     private $discussions;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="figure", fetch="EAGER", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="figure", fetch="EAGER", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $videos;
 
@@ -237,5 +237,10 @@ class Figure
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

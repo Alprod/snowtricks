@@ -14,11 +14,11 @@
         <div class="col">
             <p class="p-3">{{ figuresId.description }}</p>
         </div>
-        <div class="col">
-            <div class="row row-cols-2 row-cols-md-5 g-1">
+        <div class="col m-auto">
+            <div class="row row-cols-2 row-cols-md-5 g-1 mt-2 mb-4">
             {% for image in figuresId.images %}
                 <div class="col">
-                    <div class="card bg-dark text-white m-auto m-2" style="max-width: 12rem;">
+                    <div class="card bg-dark text-white m-auto" style="max-width: 12rem;">
                         <img src="{{ asset(image.link) }}" class="card-img" alt="{{ image.title }}">
                         <div class="card-img-overlay">
                             <h5 class="card-title fs-6">{{ image.title }}</h5>
@@ -28,28 +28,57 @@
             {% endfor %}
             </div>
         </div>
-        <div class="col"><p class="text-center">Vidéo Youtube</p></div>
+
+        <div class="col m-auto">
+            <div class="row">
+                {% for video in figuresId.videos %}
+                <div class="col">
+                    {% set link = video.link %}
+                    {% set id = link|split('v=')|last %}
+                    {% set id = link|split('&')|first %}
+                    {% set id = link|split('/')|last %}
+                    <div class="ratio ratio-21x9 rounded">
+                        <iframe class="rounded" src="https://www.youtube.com/embed/{{id}}" height="250px" allowfullscreen></iframe>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
         <div class="col">
-            <div class="row row-cols-sm-1 row-cols-md-3 m-3">
+            <div class="row row-cols-sm-1 row-cols-md-3 m-5">
                 <div class="col">Rédiger par <span class="fw-bold fst-italic">{{ figuresId.author }}</span></div>
                 <div class="col">le : <span class="fw-bold fst-italic">{{ figuresId.createdAt | date('d/m/Y à H:i') }}</span></div>
                 <div class="col">Groupe figure <span class="fw-bold fst-italic">{{ figuresId.category.title }}</div>
             </div>
         </div>
+        <div class="col">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center my-5">
+                <a href="{{ path('figure_edit', {id: figuresId.id}) }}" class="btn btn-dark me-md-2" type="button">Mettre a jour</a>
+                <form method="post" action="{{ path('figure_delete', {id: figuresId.id}) }}">
+                    <input type="hidden" name="token" value="{{ csrf_token('delete_figure' ~ figuresId.id) }}">
+                    <button class="btn btn-danger" type="submit">Supprimer</button>
+                </form>
+            </div>
+        </div>
         <div class="col"><p class="text-center">Form Discussion</p></div>
         <div class="col">
-            <div class="row shadow rounded w-75 m-auto">
-            {% for discussion in figuresId.discussions %}
-                <div class="col-12 col-md-3 text-center p-2">
-                    <img class="rounded-circle img-fluid" src="https://picsum.photos/id/104/90/90" alt="...">
-                </div>
-                <div class="col-12 col-md-9">
-                    <p>Écrit par : {{ discussion.author }}  <span class="text-muted fst-italic"> le : {{ discussion.createdAt | date('d-m-Y') }}</span></p>
-                    <hr>
-                    <p>{{ discussion.content }}</p>
-                </div>
-            {% endfor %}
+            {% if figuresId.discussions|length > 0 %}
+            <div class="row shadow rounded p-3 w-75 m-auto">
+                {% for discussion in figuresId.discussions %}
+                    <div class="col-12 col-md-3 text-center m-auto">
+                        <img class="rounded-circle img-fluid" src="https://picsum.photos/id/104/90/90" alt="...">
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <p>Écrit par : {{ discussion.author }}<span class="text-muted fst-italic mx-2">le : {{ discussion.createdAt | date('d-m-Y') }}</span></p>
+                        <hr>
+                        <p>{{ discussion.content }}</p>
+                    </div>
+                {% endfor %}
             </div>
+            {% else %}
+            <p class="text-center fw-bold fst-italic">Pas de discussion</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

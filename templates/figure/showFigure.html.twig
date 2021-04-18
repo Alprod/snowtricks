@@ -6,7 +6,7 @@
     <h1 class="mt-5 title">{{ titre }}</h1>
     {% if app.user %}
         <div class="mt-5 mb-4">
-            <a href="#" class="btn btn-dark">Créer une figure</a>
+            <a href="{{ path('figure_create') }}" class="btn btn-dark">Créer une figure</a>
         </div>
     {% endif %}
     <section class="mt-5">

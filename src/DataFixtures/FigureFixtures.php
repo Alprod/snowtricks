@@ -5,10 +5,12 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use App\Entity\Figure;
 use App\Entity\Image;
+use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Faker\Provider\Youtube;
 
 class FigureFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -32,12 +34,24 @@ class FigureFixtures extends Fixture implements DependentFixtureInterface
 
                 $manager->persist($figure);
                 $this->setReference('Figure_'.$i, $figure);
+
+                $faker->addProvider(new \Faker\Provider\Image($faker));
                 for($img = 1; $img <= 5; $img++) {
                     $image = new Image();
                     $image->setTitle($faker->words(3, true))
                         ->setLink($faker->imageUrl(350,150))
                         ->setFigure($figure);
                     $manager->persist($image);
+                }
+
+                $faker->addProvider(new Youtube($faker));
+                for($vdo = 1; $vdo <= 4; $vdo++) {
+                    $video = new Video();
+                    $video->setTitle($faker->words(2,true))
+                        ->setLink($faker->youtubeUri())
+                        ->setFigure($figure);
+
+                    $manager->persist($video);
                 }
             }
         }
