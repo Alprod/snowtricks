@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{titre}} {% endblock %}
+{% block title %} {{titre}} | {% if app.user %} {{ app.user.firstname }} {% else %} Home {% endif %} {% endblock %}
 
 {% block body %}
     <h1 class="mt-5 title">Bienvenu à {{titre}}</h1>

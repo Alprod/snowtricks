@@ -8,9 +8,10 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "aalaap/faker-youtube": "^2.0",
         "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/annotations": "^1.12",
         "doctrine/doctrine-bundle": "^2.3",
@@ -39,6 +40,7 @@
         "symfony/proxy-manager-bridge": "5.2.*",
         "symfony/rate-limiter": "5.2.*",
         "symfony/security-bundle": "5.2.*",
+        "symfony/security-csrf": "5.2.*",
         "symfony/serializer": "5.2.*",
         "symfony/string": "5.2.*",
         "symfony/translation": "5.2.*",
@@ -60,7 +62,8 @@
         "symfony/phpunit-bridge": "^5.2",
         "symfony/stopwatch": "^5.2",
         "symfony/var-dumper": "^5.2",
-        "symfony/web-profiler-bundle": "^5.2"
+        "symfony/web-profiler-bundle": "^5.2",
+        "roave/security-advisories": "dev-latest"
     },
     "config": {
         "optimize-autoloader": true,
