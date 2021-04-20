@@ -1,0 +1,23 @@
+{% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('js/baseJs') }}
+{% endblock %}
+{% block body %}
+<div class="container-fluid" id="error404">
+    <div class="card bg-transparent text-white border-0 pb-5 ml-5 cardRickMorty">
+        <div class="card-title">
+            <h1 class="font404 text-center m-3">Désolé ! </h1>
+        </div>
+        <img src="{{ asset('build/images/rick_morty_PNG10.ce77c437.png') }}" alt="">
+        <div class="card-body">
+            <p class="text-center"> Mais la page demandée n'a pas pu être localisée.</p>
+            <p class="text-center">Code erreur : {{ status_code }}.</p>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a class="btn btn-outline-light" href="{{ path('home') }}"> Page d'accueil </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
