@@ -21,9 +21,6 @@ class FigureController extends AbstractController
     public function show(FigureRepository $repo): Response
     {
         $figures = $repo->findAll();
-        if(!$figures) {
-            throw $this->createNotFoundException("Désolé mais cette figure n'éxiste pas");
-        }
         return $this->render('figure/showFigure.html.twig', [
             'titre' => 'Vue de tout nos tricks',
             'figures' => $figures
@@ -38,6 +35,9 @@ class FigureController extends AbstractController
      */
     public function detail(Figure $figureId): Response
     {
+        if(!$figureId) {
+             throw $this->createNotFoundException('Désolé mais la figure n\'éxiste plus');
+        }
         return $this->render('figure/detailFigure.html.twig', [
             'figuresId' => $figureId
         ]);
