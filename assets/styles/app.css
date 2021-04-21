@@ -34,6 +34,10 @@ label[for=inputPassword]{
     margin-top: 2.5rem !important;  
 }
 
+.cardImage:hover {
+    cursor: pointer;
+}
+
 /* Style de la page error404 */
 #error404 {
     height: 100vh;

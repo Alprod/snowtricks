@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}  {% endblock %}
+{% block title %} {{ figuresId.title }}  {% endblock %}
 {% block body %}
     <div class="row row-cols-1 mt-5 mb-5">
         <div class="col text-center">
@@ -18,13 +18,17 @@
             <div class="row row-cols-2 row-cols-md-5 g-1 mt-2 mb-4">
             {% for image in figuresId.images %}
                 <div class="col">
-                    <div class="card bg-dark text-white m-auto" style="max-width: 12rem;">
+                    <div class="card bg-dark text-white m-auto cardImage" style="max-width: 12rem;" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}">
                         <img src="{{ asset(image.link) }}" class="card-img" alt="{{ image.title }}">
                         <div class="card-img-overlay">
                             <h5 class="card-title fs-6">{{ image.title }}</h5>
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal -->
+                {% include('figure/modal/imageModal.html.twig') %}
+
             {% endfor %}
             </div>
         </div>
@@ -52,15 +56,18 @@
                 <div class="col">Groupe figure <span class="fw-bold fst-italic">{{ figuresId.category.title }}</div>
             </div>
         </div>
+        {% if app.user and app.user.firstname == figuresId.author %}
         <div class="col">
             <div class="d-grid gap-2 d-md-flex justify-content-md-center my-5">
-                <a href="{{ path('figure_edit', {id: figuresId.id}) }}" class="btn btn-dark me-md-2" type="button">Mettre a jour</a>
+                <a href="{{ path('figure_edit', {id: figuresId.id}) }}" class="btn btn-success me-md-2" type="button">Mettre a jour</a>
                 <form method="post" action="{{ path('figure_delete', {id: figuresId.id}) }}">
                     <input type="hidden" name="token" value="{{ csrf_token('delete_figure' ~ figuresId.id) }}">
                     <button class="btn btn-danger" type="submit">Supprimer</button>
                 </form>
             </div>
         </div>
+        {% endif %}
+
         <div class="col"><p class="text-center">Form Discussion</p></div>
         <div class="col">
             {% if figuresId.discussions|length > 0 %}

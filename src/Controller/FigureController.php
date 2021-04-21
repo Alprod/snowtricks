@@ -8,7 +8,6 @@ use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,22 +23,6 @@ class FigureController extends AbstractController
         return $this->render('figure/showFigure.html.twig', [
             'titre' => 'Vue de tout nos tricks',
             'figures' => $figures
-        ]);
-    }
-
-
-    /**
-     * @Route("/figure/{id}", name="detail_figure", methods={"GET"})
-     * @param Figure $figureId
-     * @return Response
-     */
-    public function detail(Figure $figureId): Response
-    {
-        if(!$figureId) {
-             throw $this->createNotFoundException('Désolé mais la figure n\'éxiste plus');
-        }
-        return $this->render('figure/detailFigure.html.twig', [
-            'figuresId' => $figureId
         ]);
     }
 
@@ -73,6 +56,24 @@ class FigureController extends AbstractController
             'editMode' => $figure->getId() !== null
         ]);
     }
+
+
+    /**
+     * @Route("/figure/{id}", name="detail_figure", methods={"GET"})
+     * @param Figure $figureId
+     * @return Response
+     */
+    public function detail(Figure $figureId): Response
+    {
+        if(!$figureId) {
+             throw $this->createNotFoundException('Désolé mais la figure n\'éxiste plus');
+        }
+        return $this->render('figure/detailFigure.html.twig', [
+            'figuresId' => $figureId
+        ]);
+    }
+
+
 
     /**
      *@Route("figure/{id<\d+>}/delete", name="figure_delete")
