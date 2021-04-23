@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Discussion;
 use App\Entity\Figure;
+use App\Form\DiscussionType;
 use App\Form\FigureType;
 use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -59,17 +61,32 @@ class FigureController extends AbstractController
 
 
     /**
-     * @Route("/figure/{id}", name="detail_figure", methods={"GET"})
+     * @Route("/figure/{id}", name="detail_figure", methods={"GET","POST"})
      * @param Figure $figureId
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function detail(Figure $figureId): Response
+    public function detail(Figure $figureId, Request $request, EntityManagerInterface $manager): Response
     {
-        if(!$figureId) {
-             throw $this->createNotFoundException('Désolé mais la figure n\'éxiste plus');
+        $discussion = new Discussion();
+        $formDiscussion = $this->createForm(DiscussionType::class, $discussion);
+        $formDiscussion->handleRequest($request);
+
+        if($formDiscussion->isSubmitted() && $formDiscussion->isValid()) {
+            $discussion->setCreatedAt(new \DateTime('now'));
+            $discussion->setAuthor($this->getUser()->getPseudo());
+            $discussion->setFigure($figureId);
+
+            $manager->persist($discussion);
+            $manager->flush();
+
+            return $this->redirectToRoute('detail_figure', ["id"=>$figureId->getId()]);
+
         }
         return $this->render('figure/detailFigure.html.twig', [
-            'figuresId' => $figureId
+            'figuresId' => $figureId,
+            'formDiscussion'=>$formDiscussion->createView()
         ]);
     }
 
