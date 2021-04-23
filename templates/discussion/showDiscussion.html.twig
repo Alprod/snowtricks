@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste Discussions {% endblock %}
+
+{% block body %}
+    <h2 class="mt-5 mb-5">Liste des discussions</h2>
+    <div class="accordion accordion-flush w-75 m-auto" id="author">
+        {% for discussion in discussions  %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{'#discussion-' ~ discussion.id }}" aria-expanded="true" aria-controls="{{ 'discussion-' ~ discussion.id }}">
+                        {{discussion.author}}
+                    </button>
+                </h2>
+                <div id="{{ 'discussion-' ~ discussion.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#author">
+                    <div class="accordion-body">
+                        <p>{{ discussion.content}}</p>
+                        <p class="text-muted font-italic">Rédiger le : {{ discussion.createdAt|date('d/m/Y à H:i') }}</p>
+                        <a href="{{ path('detail_figure', {"id": discussion.figure.id}) }}">Retour {{ discussion.figure.title }}</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
