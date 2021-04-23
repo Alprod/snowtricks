@@ -4,17 +4,25 @@
 
 {% block body %}
     <h1 class="m-5">Liste des Tricks en image</h1>
-    <ul class="list-group list-group-numbered w-50 m-auto">
-        {% for image in images %}
-            <li class="list-group-item d-flex justify-content-between align-items-start mb-4">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">{{ image.title }}</div>
-                    <a href="{{ path('detail_figure', {id : image.figure.id}) }}">figure : {{ '' ~ image.figure.title }}</a>
-                </div>
-                <div class="badge bg-dark rounded-pill fs-5" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}"><i class="bi bi-eye"></i></div>
-            </li>
-            <!-- Modal -->
-            {% include('figure/modal/imageModal.html.twig') %}
-        {% endfor %}
-    </ul>
+    {% if images|length > 0 %}
+        <ul class="list-group list-group-numbered w-50 m-auto">
+            {% for image in images %}
+                <li class="list-group-item d-flex justify-content-between align-items-start mb-4">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">{{ image.title }}</div>
+                        <a href="{{ path('detail_figure', {id : image.figure.id}) }}">figure : {{ '' ~ image.figure.title }}</a>
+                    </div>
+                    <div class="badge bg-dark rounded-pill fs-5" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}"><i class="bi bi-eye"></i></div>
+                </li>
+                <!-- Modal -->
+                {% include('figure/modal/imageModal.html.twig') %}
+            {% endfor %}
+        </ul>
+        <div class="d-flex justify-content-center">
+            {% do images.setPageRange(2) %}
+            {{ knp_pagination_render(images, 'base/pagination.html.twig') }}
+        </div>
+    {% else %}
+        <p>Pas d'image pour le moment</p>
+    {% endif %}
 {% endblock %}

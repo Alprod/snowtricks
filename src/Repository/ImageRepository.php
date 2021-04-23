@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,6 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ImageRepository extends ServiceEntityRepository
 {
+    public const NB_IMAGE_PER_PAGE = 8;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Image::class);
