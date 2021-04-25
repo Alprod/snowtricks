@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+
+{% endblock %}
+
+
+{% block body %}
+    {% if imageMode %}
+        <h1 class="m-5">Mettre a jour l'image</h1>
+    {% else %}
+        <h1 class="m-5">Ajouter une image</h1>
+    {% endif %}
+    {% if error is not null %}
+        <p>{{ error }}</p>
+    {% endif %}
+    {{ form_start(formImage) }}
+    <div class="d-flex flex-column align-items-center">
+        <div class="form-floating mb-3 w-50">
+            {{ form_row(formImage.title, {
+                'attr':{
+                    'class':'form-control'
+                    },
+                'label': 'Titre',
+                'label_attr':{
+                    'class': 'mb-1'
+                    }
+                }
+            ) }}
+        </div>
+        <div class="form-floating mb-3 w-50">
+            {{ form_row(formImage.link, {
+                'required': true,
+                'attr':{
+                    'class':'form-control form-control-sm mb-2'},
+                'label':'Télécharger',
+                'label_attr':{'class':'mt-4 mb-1'},
+            }) }}
+        </div>
+        {% if imageMode %}
+            <div class="text-center" style="width: 38rem;">
+                <img class="img-fluid" src="{{ asset('build/images/' ~ images.link ) }}" alt="{{ images.title }}">
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center my-4">
+                <button type="submit" class="btn btn-outline-dark me-md-2">Mettre a jour</button>
+                <a href="{{ path('detail_figure', {id: images.figure.id}) }}" class="btn btn-danger">Annuler</a>
+            </div>
+        {% else %}
+        <button type="submit" class="btn btn-outline-dark mt-4">Enregistrer</button>
+        {% endif %}
+    </div>
+    {{ form_end(formImage) }}
+{% endblock %}
+
+

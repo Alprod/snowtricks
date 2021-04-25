@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-body p-0">
                 <div class="card bg-dark text-white">
-                    <img src="{{ asset(image.link) }}" class="card-img" alt="{{ image.title }}">
+                    <img src="{{ asset('build/images/' ~ image.link) }}" class="card-img" alt="{{ image.title }}">
                     <div class="card-img-overlay">
                         <h5 class="card-title">{{ image.title }}</h5>
                     </div>

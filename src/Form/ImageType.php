@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ImageType extends AbstractType
 {
@@ -13,8 +15,21 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('link')
-            ->add('figure')
+            //->add('figure')
+            ->add('link', FileType::class, [
+                'required' => true,
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/*'
+                        ],
+                        'maxSizeMessage'=>'Votre image {{name}} est trop grande {{size}}.',
+                        'mimeTypesMessage' => 'Le Format est incorrect'
+                    ])
+                ]
+            ])
         ;
     }
 

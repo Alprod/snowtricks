@@ -5,7 +5,7 @@
     <div class="row row-cols-1 mt-5 mb-5">
         <div class="col text-center">
             {% if figuresId.images|length > 0 %}
-            <img src="{{ asset(figuresId.images[0].link) }}" class="img-fluid w-100" alt="{{ figuresId.images[0].title }}">
+                <img src="{{ asset('build/images/' ~ figuresId.images[0].link) }}" class="img-fluid w-100" alt="{{ figuresId.images[0].title }}">
             {% else %}
             <p class="text-center">Désolé mais pas d'image</p>
             {% endif %}
@@ -16,17 +16,32 @@
         </div>
         <div class="col m-auto">
             <div class="row row-cols-2 row-cols-md-5 g-1 mt-2 mb-4">
+            {% if app.user and app.user.firstname == figuresId.author %}
+                <div class="col text-center">
+                    <a href="{{ path('new_image', {figure: figuresId.id}) }}" class="btn btn-outline-dark border border-3 border-dark fs-1 p-4">
+                        <i class="bi bi-plus-circle"></i>
+                    </a>
+                </div>
+            {% endif %}
             {% for image in figuresId.images %}
                 <div class="col">
                     <div class="card bg-dark text-white m-auto cardImage" style="max-width: 12rem;" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}">
-                        <img src="{{ asset(image.link) }}" class="card-img" alt="{{ image.title }}">
+                        <img src="{{ asset('build/images/' ~ image.link) }}" class="card-img" alt="{{ image.title }}">
                         <div class="card-img-overlay">
                             <h5 class="card-title fs-6">{{ image.title }}</h5>
                         </div>
                     </div>
+                    {% if app.user and app.user.firstname == figuresId.author %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center my-2">
+                        <a href="{{ path('image_edit', {id: image.id, figure: figuresId.id}) }}" class="btn btn-outline-dark me-md-1 border border-0 fs-5"><i class="bi bi-pencil-square"></i></a>
+                        <button type="button" class="btn btn-outline-danger border border-0 fs-5" data-bs-toggle="modal" data-bs-target="#imageModalDeleted"><i class="bi bi-trash"></i></button>
+                        <!-- Modal delete image --->
+                        {% include('figure/modal/deleteImageModal.html.twig') %}
+                    </div>
+                    {% endif %}
                 </div>
 
-                <!-- Modal -->
+                <!-- Modal Image View -->
                 {% include('figure/modal/imageModal.html.twig') %}
 
             {% endfor %}
@@ -59,11 +74,10 @@
         {% if app.user and app.user.firstname == figuresId.author %}
         <div class="col">
             <div class="d-grid gap-2 d-md-flex justify-content-md-center my-5">
-                <a href="{{ path('figure_edit', {id: figuresId.id}) }}" class="btn btn-success me-md-2" type="button">Mettre a jour</a>
-                <form method="post" action="{{ path('figure_delete', {id: figuresId.id}) }}">
-                    <input type="hidden" name="token" value="{{ csrf_token('delete_figure' ~ figuresId.id) }}">
-                    <button class="btn btn-danger" type="submit">Supprimer</button>
-                </form>
+                <a href="{{ path('figure_edit', {id: figuresId.id}) }}" class="btn btn-dark me-md-2">Mettre a jour</a>
+                <button type="button" class="btn btn-danger border border-0 fs-5" data-bs-toggle="modal" data-bs-target="#figureModalDeleted">Supprimer</button>
+                <!-- Modal deleted figure --->
+                {% include('figure/modal/deleteFigureModal.html.twig') %}
             </div>
         </div>
         {% endif %}
