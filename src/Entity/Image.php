@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -61,12 +62,12 @@ class Image
         return $this;
     }
 
-    public function getFigure(): ?Figure
+    public function getFigure()
     {
         return $this->figure;
     }
 
-    public function setFigure(?Figure $figure): self
+    public function setFigure($figure): self
     {
         $this->figure = $figure;
 
