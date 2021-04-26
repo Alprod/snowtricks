@@ -12,8 +12,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class FileUploader
 {
     private $targetDirectory;
-    private $slugger;
-    private $urlGenerator;
+    private SluggerInterface $slugger;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct($targetDirectory, SluggerInterface $slugger, UrlGeneratorInterface $urlGenerator)
     {
@@ -22,6 +22,11 @@ class FileUploader
         $this->urlGenerator = $urlGenerator;
     }
 
+    /**
+     * @param UploadedFile $file
+     * @param string $render
+     * @return string|RedirectResponse
+     */
     public function upload(UploadedFile $file, string $render)
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -37,6 +42,9 @@ class FileUploader
         return $fileName;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTargetDirectory()
     {
         return $this->targetDirectory;
