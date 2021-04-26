@@ -1,9 +1,9 @@
 <?php
-namespace App\tests\Func\Controller;
+namespace App\Tests\Func\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class HomeContollerTest extends WebTestCase
+class HomeControllerTest extends WebTestCase
 {
     public function testDisplayHomePage()
     {
@@ -11,7 +11,7 @@ class HomeContollerTest extends WebTestCase
         $client->request('GET', '/');
         $response = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $response);
+        self::assertEquals(200, $response);
     }
 
 }
