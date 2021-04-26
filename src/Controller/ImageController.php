@@ -7,6 +7,7 @@ use App\Entity\Image;
 use App\Form\ImageType;
 use App\Repository\FigureRepository;
 use App\Repository\ImageRepository;
+use App\Service\Uploader\ImageUploadFile;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -51,12 +52,12 @@ class ImageController extends AbstractController
      * @Route ("/{id<\d+>}/image_edit", name="image_edit", methods={"GET","POST"})
      * @param Image|null $image
      * @param Request $request
-     * @param SluggerInterface $slugger
+     * @param ImageUploadFile $imageUploadFile
      * @param FigureRepository $figureRepository
      * @return Response
      * @noinspection PhpOptionalBeforeRequiredParametersInspection
      */
-    public function formImage(Image $image = null,Request $request, SluggerInterface $slugger, FigureRepository $figureRepository): Response
+    public function formImage(Image $image = null,Request $request, ImageUploadFile $imageUploadFile,FigureRepository $figureRepository): Response
     {
         if(!$image) {
             $image = new Image();
@@ -67,29 +68,13 @@ class ImageController extends AbstractController
 
         if ($formImage->isSubmitted() && $formImage->isValid()) {
 
-            /** @var UploadedFile $imageFile */
-            $imageFile = $formImage->get('link')->getData();
+            /** @var UploadedFile $linkFileImage */
+            $linkFileImage = $formImage->get('link')->getData();
 
-            if($imageFile) {
-
-                $originFileName = pathinfo($imageFile->getClientOriginalExtension(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originFileName);
-                $newFilename = 'SnowTricks-'.$safeFilename.'-'.uniqid().'.'.$imageFile->guessClientExtension();
-
-                try {
-                    $imageFile->move(
-                        $this->getParameter('images_figure'),
-                        $newFilename
-                    );
-
-                } catch (FileException $e) {
-
-                    return $this->redirectToRoute('new_image', [
-                        'error' => $e->getMessage()
-                    ]);
-                }
+            if($linkFileImage) {
+                $newFilenameImage = $imageUploadFile->upload($linkFileImage, "new_image");
                 $image->setFigure($figueId);
-                $image->setLink($newFilename);
+                $image->setLink($newFilenameImage);
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($image);

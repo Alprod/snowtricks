@@ -5,8 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
-use App\Service\FileUploader;
-use App\Service\Uploader\AvatarUploader;
+use App\Service\Uploader\AvatarUploadFile;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -29,7 +28,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, FileUploader $fileUploader): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, AvatarUploadFile $avatarUploadFile): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -46,8 +45,8 @@ class RegistrationController extends AbstractController
             $linkFileAvatar = $form->get('avatar')->getData();
 
             if($linkFileAvatar) {
-                $avatarFileName = $fileUploader->upload($linkFileAvatar, 'app_register');
-                $user->setAvatar($avatarFileName);
+                $newFilenameAvatar = $avatarUploadFile->upload($linkFileAvatar, 'app_register');
+                $user->setAvatar($newFilenameAvatar);
             }
 
             $entityManager = $this->getDoctrine()->getManager();

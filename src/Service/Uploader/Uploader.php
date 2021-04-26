@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Service;
+
+namespace App\Service\Uploader;
+
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -8,8 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-
-class FileUploader
+class Uploader
 {
     private $targetDirectory;
     private SluggerInterface $slugger;
@@ -25,18 +26,19 @@ class FileUploader
     /**
      * @param UploadedFile $file
      * @param string $render
+     * @param array $params
      * @return string|RedirectResponse
      */
-    public function upload(UploadedFile $file, string $render)
+    public function upload(UploadedFile $file, string $render, array $params = [])
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
-        $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+        $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-               return new RedirectResponse($this->urlGenerator->generate($render));
+            return new RedirectResponse($this->urlGenerator->generate($render, $params));
         }
 
         return $fileName;

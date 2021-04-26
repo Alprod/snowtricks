@@ -35,4 +35,12 @@ services:
         arguments:
             $targetDirectory: '%images_avatar%'
 
+    App\Service\Uploader\AvatarUploadFile:
+        arguments:
+            $targetDirectory: '%images_avatar%'
+
+    App\Service\Uploader\ImageUploadFile:
+        arguments:
+            $targetDirectory: '%images_figure%'
+
     Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
