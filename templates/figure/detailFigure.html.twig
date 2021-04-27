@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
-
+{% set idFigure = figuresId.id %}
 {% block title %} {{ figuresId.title }}  {% endblock %}
 {% block body %}
     <div class="row row-cols-1 mt-5 mb-5">
+        <div class="col p-4"><h1 class="text-center ">{{ figuresId.title }}</h1></div>
         <div class="col text-center">
             {% if figuresId.images|length > 0 %}
-                <img src="{{ asset('build/images/' ~ figuresId.images[0].link) }}" class="img-fluid w-100" alt="{{ figuresId.images[0].title }}">
+                <img src="{{ asset('build/images/' ~ figuresId.images[0].link) }}" class="img-fluid w-75" alt="{{ figuresId.images[0].title }}">
             {% else %}
             <p class="text-center">Désolé mais pas d'image</p>
             {% endif %}
         </div>
-        <div class="col p-4"><h1 class="text-center ">{{ figuresId.title }}</h1></div>
         <div class="col">
             <p class="p-3">{{ figuresId.description }}</p>
         </div>
@@ -33,7 +33,7 @@
                     </div>
                     {% if app.user and app.user.firstname == figuresId.author %}
                     <div class="d-grid gap-2 d-md-flex justify-content-md-center my-2">
-                        <a href="{{ path('image_edit', {id: image.id, figure: figuresId.id}) }}" class="btn btn-outline-dark me-md-1 border border-0 fs-5"><i class="bi bi-pencil-square"></i></a>
+                        <a href="{{ path('image_edit', {id: image.id, figure: idFigure}) }}" class="btn btn-outline-dark me-md-1 border border-0 fs-5"><i class="bi bi-pencil-square"></i></a>
                         <button type="button" class="btn btn-outline-danger border border-0 fs-5" data-bs-toggle="modal" data-bs-target="#imageModalDeleted"><i class="bi bi-trash"></i></button>
                         <!-- Modal delete image --->
                         {% include('figure/modal/deleteImageModal.html.twig') %}
@@ -49,15 +49,22 @@
         </div>
 
         <div class="col m-auto">
-            <div class="row">
+            <div class="row row-cols-2 row-cols-md-5 g-1 mt-2 mb-4">
+                {% if app.user and app.user.firstname == figuresId.author %}
+                    <div class="col-1 text-center">
+                        <a href="{{ path('new_video', {figure: idFigure}) }}" class="btn btn-outline-dark border border-3 border-dark fs-1 p-4">
+                            <i class="bi bi-file-earmark-play"></i>
+                        </a>
+                    </div>
+                {% endif %}
                 {% for video in figuresId.videos %}
                 <div class="col">
                     {% set link = video.link %}
                     {% set id = link|split('v=')|last %}
                     {% set id = link|split('&')|first %}
                     {% set id = link|split('/')|last %}
-                    <div class="ratio ratio-21x9 rounded">
-                        <iframe class="rounded" src="https://www.youtube.com/embed/{{id}}" height="250px" allowfullscreen></iframe>
+                    <div class="ratio ratio-16x9 rounded">
+                        <iframe class="rounded" src="https://www.youtube.com/embed/{{id}}"  allowfullscreen></iframe>
                     </div>
                 </div>
                 {% endfor %}
@@ -85,17 +92,17 @@
         <hr>
         <div class="col">
             <h3 class="text-center m-4">Lancer une discussion</h3>
-            <div class="d-grid gap-2 col-6 mx-auto">
+            <div class="d-grid gap-2 col-8 mx-auto">
                 {{ form_start(formDiscussion) }}
                     {{ form_row(formDiscussion.content, {
                         'attr':{
-                            'rows': '6',
+                            'rows': '4',
                             'class': 'form-control mb-1'},
                         'label': 'Votre Message',
                         'label_attr': {
                             'class': 'mb-1 mt-3'}
                     }) }}
-                <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-5">
+                <div class="d-grid gap-2 col-4 mx-auto mt-3 mb-5">
                     <button type="submit" class="btn btn-dark">Envoyer</button>
                 </div>
                 {{ form_end(formDiscussion) }}
@@ -107,7 +114,7 @@
             <h5 class="text-center">Discussions</h5>
             {% if figuresId.discussions|length > 0 %}
                 {% for discussion in figuresId.discussions %}
-                <div class="row shadow rounded border p-1 w-50 m-auto mt-4">
+                <div class="row shadow rounded border p-1 w-75 m-auto mt-4">
                     <div class="col-12 p-2">
                         <p>Écrit par : {{ discussion.author }}<span class="text-muted fst-italic mx-2">le : {{ discussion.createdAt | date('d-m-Y') }}</span></p>
                         <hr>
