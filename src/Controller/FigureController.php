@@ -8,6 +8,7 @@ use App\Form\DiscussionType;
 use App\Form\FigureType;
 use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +20,14 @@ class FigureController extends AbstractController
     /**
      *@Route("/figure", name="figure", methods={"GET"})
      */
-    public function show(FigureRepository $repo): Response
+    public function show(FigureRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
-        $figures = $repo->findAll();
+        $data = $repo->findBy([], ['createdAt'=> 'DESC']);
+        $figures = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('figure/showFigure.html.twig', [
             'titre' => 'Vue de tout nos tricks',
             'figures' => $figures
