@@ -15,7 +15,9 @@
             {% for figure in figures %}
                 <div class="col">
                     <div class="card">
+                        {% if figure.images|length > 0 %}
                         <img src="{{ asset('build/images/' ~ figure.images[0].link) }}" class="card-img-top" alt="...">
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ figure.title }}</h5>
                             <a href="{{ path('detail_figure', {id: figure.id}) }}" class="btn btn-dark btn-sm">Voir détail</a>
