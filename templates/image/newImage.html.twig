@@ -1,15 +1,13 @@
 {% extends 'base.html.twig' %}
-{% block title %}
 
+{% block title %}
+    {{ imageMode ? 'Mettre a jour l\'image' : 'Ajouter une image' }}
 {% endblock %}
 
 
 {% block body %}
-    {% if imageMode %}
-        <h1 class="m-5">Mettre a jour l'image</h1>
-    {% else %}
-        <h1 class="m-5">Ajouter une image</h1>
-    {% endif %}
+    <h1 class="m-5">{{ imageMode ? 'Mettre a jour l\'image' : 'Ajouter une image' }} </h1>
+
     {% if error is not null %}
         <p>{{ error }}</p>
     {% endif %}

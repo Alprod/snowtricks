@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello VideoController!{% endblock %}
+{% block title %}List Youtube video{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/alprod/Desktop/workspace/snowTricks/src/Controller/VideoController.php'|file_link(0) }}">src/Controller/VideoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/alprod/Desktop/workspace/snowTricks/templates/video/index.html.twig'|file_link(0) }}">templates/video/index.html.twig</a></code></li>
+    <h1 class="m-5">Liste des Tricks en video</h1>
+    {% if videos|length > 0 %}
+    <ul class="list-group list-group-numbered w-50 m-auto">
+        {% for video in videos %}
+            <li class="list-group-item d-flex justify-content-between align-items-start mb-4">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">{{ video.title }}</div>
+                    <a href="{{ path('detail_figure', {id : video.figure.id}) }}">figure : {{ '' ~ video.figure.title }}</a>
+                </div>
+                <a href="{{ video.link }}" class="badge bg-dark rounded-pill fs-5 link-light"><i class="bi bi-play-btn"></i></a>
+            </li>
+            <!-- Modal -->
+        {% endfor %}
     </ul>
-</div>
+    <div class="d-flex justify-content-center">
+        {% do videos.setPageRange(2) %}
+        {{ knp_pagination_render(videos, 'base/pagination.html.twig') }}
+    </div>
+    {% else %}
+        <p>Pas de vidèo pour le moment</p>
+    {% endif %}
 {% endblock %}

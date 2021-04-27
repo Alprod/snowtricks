@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title%}{{ videoMode ? 'Mettre à jour la vidéo' : 'Ajouter une vidéo'}}{% endblock %}
+{% block body %}
+    <h1 class="m-5"> {{ videoMode ? 'Mettre à jour la vidéo' : 'Ajouter une vidéo'}} </h1>
+    {{ form_start(formVideo) }}
+    <div class="d-flex flex-column align-items-center">
+        <div class="form-floating mb-3 w-50">
+            {{ form_row(formVideo.title, {
+                'attr':{
+                    'class':'form-control'
+                },
+                'label': 'Titre',
+                'label_attr':{
+                    'class': 'mb-1'
+                    }
+                }
+            ) }}
+        </div>
+        <div class="form-floating mb-3 w-50">
+            {{ form_row(formVideo.link, {
+                'attr':{
+                    'class':'form-control'
+                },
+                'label': 'Vidéo Youtube',
+                'label_attr':{
+                    'class': 'mb-1'
+                    }
+                }
+            ) }}
+        </div>
+        <button type="submit" class="btn btn-outline-dark mt-4">Enregistrer</button>
+    </div>
+    {{ form_end(formVideo) }}
+{% endblock %}
