@@ -104,19 +104,17 @@
         <hr>
         {% endif %}
         <div class="col">
+            <h5 class="text-center">Discussions</h5>
             {% if figuresId.discussions|length > 0 %}
-            <div class="row shadow rounded p-3 w-75 m-auto">
                 {% for discussion in figuresId.discussions %}
-                    <div class="col-12 col-md-3 text-center m-auto">
-                        <img class="rounded-circle img-fluid" src="https://picsum.photos/id/104/90/90" alt="...">
-                    </div>
-                    <div class="col-12 col-md-9">
+                <div class="row shadow rounded border p-1 w-50 m-auto mt-4">
+                    <div class="col-12 p-2">
                         <p>Écrit par : {{ discussion.author }}<span class="text-muted fst-italic mx-2">le : {{ discussion.createdAt | date('d-m-Y') }}</span></p>
                         <hr>
                         <p>{{ discussion.content }}</p>
                     </div>
+                </div>
                 {% endfor %}
-            </div>
             {% else %}
             <p class="text-center fw-bold fst-italic">Pas de discussion</p>
             {% endif %}

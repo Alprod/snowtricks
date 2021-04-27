@@ -11,11 +11,11 @@
     {% endif %}
     <section class="mt-5">
         {% if figures %}
-            <h3>{{ figures|length }} Figures publiées a se jours</h3>
             <div class="row row-cols-1 row-cols-md-4 g-3">
             {% for figure in figures %}
                 <div class="col">
                     <div class="card">
+                        <img src="{{ asset('build/images/' ~ figure.images[0].link) }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ figure.title }}</h5>
                             <a href="{{ path('detail_figure', {id: figure.id}) }}" class="btn btn-dark btn-sm">Voir détail</a>
@@ -23,6 +23,10 @@
                     </div>
                 </div>
             {% endfor %}
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                {% do figures.setPageRange(2) %}
+                {{ knp_pagination_render(figures, 'base/pagination.html.twig') }}
             </div>
         {% else %}
         <p>Désolé mais pour le moment aucune figure.</p>
