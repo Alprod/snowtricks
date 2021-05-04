@@ -1,0 +1,10 @@
+{% apply inline_css(source('@styles/email.css')) %}
+
+    <div class="contenu">
+        <h2>Salut! et bienvenu a Snowtricks</h2>
+        <img src="{{ email.image('@avatars/wuLogo-608acf3ad1e3f.jpg') }}" class="emailLogo" alt="logo">
+        <div class="emailConfirm">
+            <p>Merci pour votre confiance.</p>
+        </div>
+    </div>
+{% endapply %}

@@ -41,7 +41,7 @@ class RegistrationFormType extends AbstractType
                     'constraints' => [
                         new Length([
                             'min' => 8,
-                            'minMessage' => 'Votre mot de passe doit être composer au minimum de 8 caractères'
+                            'minMessage' => 'Votre mot de passe doit être composer au minimum de {{ limit }} caractères'
                         ]),
                         new Regex([
                             'pattern' => '/^\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/i',
