@@ -31,6 +31,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
+
     App\Service\Uploader\AvatarUploadFile:
         arguments:
             $targetDirectory: '%images_avatar%'
@@ -39,4 +41,7 @@ services:
         arguments:
             $targetDirectory: '%images_figure%'
 
-    Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
+
+    snowtricks.email_service.send_email_helper:
+        class: App\Service\EmailService\sendEmailHelper
+

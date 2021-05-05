@@ -4,73 +4,45 @@
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        <div class="alert alert-danger" role="alert">{{ flashError|trans }}</div>
     {% endfor %}
 
     <h1 class="h3 my-5 mb-3 font-weight-normal text-center">Inscription</h1>
 
     {{ form_start(registrationForm) }}
     <div class="d-flex flex-column align-items-center">
-        <div class="w-50 form-floating mb-4">
-            {{ form_row(registrationForm.firstname,{
-                'attr':{
-                    'class': 'form-control'},
-                'label': 'Nom',
-                'label_attr': {
-                    'class': 'mb-0'
-                }
-            }) }}
+        <div class="w-50 form-floating mb-3">
+            {{ form_widget(registrationForm.firstname, {'attr':{'class':'form-control', 'placeholder': 'Votre nom'}}) }}
+            {{ form_label(registrationForm.firstname, 'Nom') }}
        </div>
         <div class="w-50 form-floating mb-4">
-            {{ form_row(registrationForm.lastname, {
-                'attr':{
-                    'class': 'form-control'},
-                'label': 'Prénom',
-                'label_attr': {
-                    'class': 'mb-0 mt-3'
-                }
-            }) }}
+            {{ form_widget(registrationForm.lastname, {'attr':{'class': 'form-control', 'placeholder': 'Votre prénom'}}) }}
+            {{ form_label(registrationForm.lastname, 'Prénom') }}
         </div>
         <div class="w-50 form-floating mb-4">
-            {{ form_row(registrationForm.pseudo, {
-                'attr':{
-                    'class': 'form-control'},
-                'label': 'Pseudo',
-                'label_attr': {
-                    'class': 'mb-0 mt-3'
-                }
-            }) }}
+            {{ form_widget(registrationForm.pseudo, {'attr':{'class': 'form-control', 'placeholder': 'Votre Pseudo'}}) }}
+            {{ form_label(registrationForm.pseudo,'Pseudo') }}
 
         </div>
         <div class="w-50 form-floating mb-4">
-            {{ form_row(registrationForm.email, {
-                'attr':{
-                    'class': 'form-control'},
-                'label': 'Email',
-                'label_attr': {
-                    'class': 'mb-0 mt-3'
-                }
-            }) }}
+            {{ form_widget(registrationForm.email, {'attr':{'class': 'form-control', 'placeholder': 'Votre Email'}}) }}
+            {{ form_label(registrationForm.email,'Email') }}
         </div>
         <div class="w-50 form-floating mb-4">
-            {{ form_row(registrationForm.password.first, {
-                'attr':{
-                    'class': 'form-control'},
-                'label': 'Mot de passe',
-                'label_attr': {
-                    'class': 'mb-0 mt-3'
-                }
-            }) }}
+            {{ form_widget(registrationForm.password.first, {'attr':{'class': 'form-control', 'placeholder': 'Votre mot de passe'}}) }}
+            {{ form_label(registrationForm.password.first,'Mot de passe') }}
+            <ul class="list-unstyled">
+            {% for error in registrationForm.password.first.vars.errors %}
+                <li class="text-danger fst-italic fs-6">
+                    {{ error.message }}
+                </li>
+            {% endfor %}
+            </ul>
+
         </div>
         <div class="w-50 form-floating mb-4">
-            {{ form_row(registrationForm.password.second, {
-                'attr':{
-                    'class': 'form-control'},
-                'label': 'Répéter le mot de passe',
-                'label_attr': {
-                    'class': 'mb-0'
-                }
-            }) }}
+            {{ form_widget(registrationForm.password.second, {'attr':{'class': 'form-control', 'placeholder': 'Répéter le mot de passe'}}) }}
+            {{ form_label(registrationForm.password.second, 'Répéter le mot de passe') }}
         </div>
         {{ form_row(registrationForm.avatar, {
             'attr':{

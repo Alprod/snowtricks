@@ -1,11 +1,15 @@
-<h1>Hi! Please confirm your email!</h1>
+{% apply inline_css(source('@styles/email.css')) %}
 
-<p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-</p>
-
-<p>
-    Cheers!
-</p>
+<div class="contenu">
+<h2>Salut! et bienvenu a Snowtricks</h2>
+    <img src="{{ email.image('@avatars/wuLogo-608acf3ad1e3f.jpg') }}" class="emailLogo" alt="logo">
+    <div class="emailConfirm">
+        <p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant.</p>
+        <p class="emailValidation"><a href="{{ signedUrl|raw }}" class="btn-validation">Confirmer votre email</a></p>
+    </div>
+    <div class="linkEmail">
+        <p>Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>
+        <p>Merci!</p>
+    </div>
+</div>
+{% endapply %}
