@@ -48,12 +48,23 @@ class FigureController extends AbstractController
         $formFigure->handleRequest($request);
 
         if($formFigure->isSubmitted() && $formFigure->isValid()) {
+            $dateParis = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
             if(!$figure->getId()) {
                 $figure->setAuthor($this->getUser()->getfirstname())
-                    ->setCreatedAt(new \DateTime());
+                    ->setCreatedAt($dateParis);
+            }
+            if($figure->getId()) {
+                $figure->setUpdatedAt($dateParis);
             }
             $manager->persist($figure);
             $manager->flush();
+
+            if ($dateParis <= $figure->getUpdatedAt()) {
+                $this->addFlash('update', 'Voilà c\'est fait !!! la figure est mise à jours' );
+            }else {
+                $this->addFlash('add', 'Félicitation vous venez d\'ajouter une vouvelle figure');
+            }
+
             return $this->redirectToRoute('detail_figure', [
                 'id' => $figure->getId()
             ]);

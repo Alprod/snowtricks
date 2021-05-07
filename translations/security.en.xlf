@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="Invalid credentials.">
                 <source>Invalid credentials.</source>
-                <target>Le mot de passe que vous avez entré n'était pas valide!</target>
+                <target>Le mot de passe n'est pas valide!</target>
             </trans-unit>
         </body>
     </file>
