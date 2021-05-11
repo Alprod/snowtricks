@@ -3,18 +3,32 @@
 {% block title %}Connection{% endblock %}
 
 {% block body %}
-<form method="post">
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 5">
+    {% if app.user %}
+        <div id="connect" class="toast align-items-center text-white bg-primary border-0" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="10000">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}" class="alert-link link-warning">Déconnexion</a>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div id="error" class="toast align-items-center bg-danger text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<form method="post" id="loginForm">
     <div class="d-flex flex-column align-items-center">
         <h1 class="h3 mb-4 mt-5 font-weight-normal">Veuillez vous connecter</h1>
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-
-        {% if app.user %}
-            <div class="mb-3 alert alert-info" role="alert">
-                Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}" class="alert-link">Déconnexion</a>
-            </div>
-        {% endif %}
         <div class="form-floating mb-3 w-50">
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Votre email" class="form-control {% if error %}is-invalid{% endif %}" required autofocus>
             <label for="inputEmail">Email</label>
@@ -30,8 +44,12 @@
             </label>
         </div>
         <div class="d-grid gap-2 col-4 mx-auto">
-            <button type="submit" class="btn btn-dark mb-5">Connecter</button>
+            <button type="submit" class="btn btn-dark mb-5" onclick="" id="js-toast-btn">Connecter</button>
         </div>
     </div>
 </form>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('js/toastJs') }}
 {% endblock %}

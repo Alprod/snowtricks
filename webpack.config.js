@@ -10,20 +10,6 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
-    .copyFiles({
-        from: './assets/images',
-        //to: 'images/[path][name].[ext]',
-        to: 'images/[path][name].[hash:8].[ext]',
-        pattern: /\.(png|jpg|jpeg)$/
-    })
-
-    .copyFiles({
-        from: './assets/avatars',
-        //to: 'images/[path][name].[ext]',
-        to: 'avatars/[path][name].[hash:8].[ext]',
-        pattern: /\.(png|jpg|jpeg)$/
-    })
-    
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
@@ -42,6 +28,20 @@ Encore
         //maxSize: 4 * 1024
     })
 
+    .copyFiles({
+        from: './assets/images',
+        //to: 'images/[path][name].[ext]',
+        to: 'images/[path][name].[hash:8].[ext]',
+        pattern: /\.(png|jpg|jpeg)$/
+    })
+
+    .copyFiles({
+        from: './assets/avatars',
+        //to: 'images/[path][name].[ext]',
+        to: 'avatars/[path][name].[hash:8].[ext]',
+        pattern: /\.(png|jpg|jpeg)$/
+    })
+
     /*
      * ENTRY CONFIG
      *
@@ -50,7 +50,6 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('js/baseJs', './assets/js/baseJs.js')
-
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
@@ -100,18 +99,17 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
 
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+// uncomment if you use TypeScript
+//.enableTypeScriptLoader()
 
-    // uncomment if you use React
-    //.enableReactPreset()
+// uncomment if you use React
+//.enableReactPreset()
 
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
+// uncomment to get integrity="..." attributes on your script & link tags
+// requires WebpackEncoreBundle 1.4 or higher
+//.enableIntegrityHashes(Encore.isProduction())
 
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+// uncomment if you're having problems with a jQuery plugin
+//.autoProvidejQuery()
 ;
-
 module.exports = Encore.getWebpackConfig();

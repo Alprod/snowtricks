@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Discussion;
 use App\Entity\Figure;
+use App\Entity\User;
 use App\Form\DiscussionType;
 use App\Form\FigureType;
 use App\Repository\FigureRepository;
@@ -48,12 +49,17 @@ class FigureController extends AbstractController
         $formFigure->handleRequest($request);
 
         if($formFigure->isSubmitted() && $formFigure->isValid()) {
+            $dateParis = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
             if(!$figure->getId()) {
                 $figure->setAuthor($this->getUser()->getfirstname())
-                    ->setCreatedAt(new \DateTime());
+                    ->setCreatedAt($dateParis);
+            }
+            if($figure->getId()) {
+                $figure->setUpdatedAt($dateParis);
             }
             $manager->persist($figure);
             $manager->flush();
+
             return $this->redirectToRoute('detail_figure', [
                 'id' => $figure->getId()
             ]);
