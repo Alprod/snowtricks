@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Discussion;
 use App\Entity\Figure;
+use App\Entity\User;
 use App\Form\DiscussionType;
 use App\Form\FigureType;
 use App\Repository\FigureRepository;
@@ -58,12 +59,6 @@ class FigureController extends AbstractController
             }
             $manager->persist($figure);
             $manager->flush();
-
-            if ($dateParis <= $figure->getUpdatedAt()) {
-                $this->addFlash('update', 'Voilà c\'est fait !!! la figure est mise à jours' );
-            }else {
-                $this->addFlash('add', 'Félicitation vous venez d\'ajouter une vouvelle figure');
-            }
 
             return $this->redirectToRoute('detail_figure', [
                 'id' => $figure->getId()

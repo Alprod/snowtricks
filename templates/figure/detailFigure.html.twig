@@ -2,8 +2,6 @@
 {% set idFigure = figuresId.id %}
 {% block title %} {{ figuresId.title }}  {% endblock %}
 {% block body %}
-    {% include('toast/addToast.hmtl.twig') %}
-    <p>{{ dump(app.flashes) }}</p>
     <div class="row row-cols-1 mt-5 mb-5">
         <div class="col p-4"><h1 class="text-center ">{{ figuresId.title }}</h1></div>
         <div class="col text-center">

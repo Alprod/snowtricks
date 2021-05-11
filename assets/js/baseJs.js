@@ -18,5 +18,4 @@ window.onload = function(event) {
 }
 
 seeToast('error');
-seeToast('addFigure');
 

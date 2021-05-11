@@ -50,8 +50,6 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('js/baseJs', './assets/js/baseJs.js')
-    .addEntry('js/toastJs', './assets/js/toastJs.js')
-
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
