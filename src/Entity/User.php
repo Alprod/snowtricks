@@ -23,7 +23,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Email(message="Désolé mais {{ value }} n'est pas valid")
+     * @Assert\Email(message="Désolé mais {{ value }} n'est pas valide")
      */
     private $email;
 
@@ -35,7 +35,15 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     *
+     * @Assert\Length(
+     *     min=8,
+     *     minMessage="Votre mot de passe doit être composer au minimum de {{ limit }} caractères"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/",
+     *     message="Il vous faut au moins 1 chiffre, 1 majuscule, 1 minuscule et 1 caractère spécial",
+     *     match="true"
+     * )
      */
     private $password;
 
