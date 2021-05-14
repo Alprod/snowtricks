@@ -30,6 +30,10 @@ class Figure
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Indiquez une déscription de la figure")
+     * @Assert\Length(
+     *     min=50,
+     *     minMessage="Veuillez ecrire {{ limit }} caractères minimum"
+     * )
      */
     private $description;
 

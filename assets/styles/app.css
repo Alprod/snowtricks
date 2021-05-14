@@ -58,8 +58,8 @@ label[for=inputPassword]{
 }
 
 /* Style form création figure */
-.descriptionField {
-    max-height: 250px !important;
+#figure_description {
+    height: 250px !important;
 }
 
 /* X-Small devices (portrait phones, less than 576px)*/
