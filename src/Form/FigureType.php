@@ -16,8 +16,12 @@ class FigureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('title', TextType::class, [
+                'required' => false
+            ])
+            ->add('description', TextareaType::class, [
+                'required' => false
+            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => function(Category $category){

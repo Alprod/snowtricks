@@ -57,6 +57,11 @@ label[for=inputPassword]{
     background: linear-gradient(to top, rgba(67, 67, 67, 0.5), rgba(0, 0, 0, 0.5)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+/* Style form création figure */
+.descriptionField {
+    max-height: 250px !important;
+}
+
 /* X-Small devices (portrait phones, less than 576px)*/
 @media (max-width: 573px) and (min-width: 319px) {
     .cardRickMorty {
