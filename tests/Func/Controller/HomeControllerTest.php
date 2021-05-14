@@ -1,17 +1,23 @@
 <?php
-namespace App\Tests\Entity\Func\Controller;
+namespace App\Tests\Func\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeControllerTest extends WebTestCase
 {
-    public function testDisplayHomePage()
+    public function testHomePage()
     {
         $client = static::createClient();
         $client->request('GET', '/');
-        $response = $client->getResponse()->getStatusCode();
+        self::assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
 
-        self::assertEquals(200, $response);
+    public function testTitleH1HomePage()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/');
+        self::assertSelectorTextContains('h1', 'Bienvenu à SnowTricks');
     }
 
 }
