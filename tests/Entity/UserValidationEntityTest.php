@@ -4,23 +4,19 @@ namespace App\Tests\Entity;
 
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 class UserValidationEntityTest extends KernelTestCase
 {
+    use ErrorValidationTestTrait;
+
     private const EMAIL_CONSTRAINT_MESSAGE = "Désolé mais \"alain@gmail\" n'est pas valide";
     private const EMAIL_INVALID_VALUE = "alain@gmail";
     private const PASSWORD_REGEX_CONSTRAINT_MESSAGE = "Il vous faut au moins 1 chiffre, 1 majuscule, 1 minuscule et 1 caractère spécial";
     private const EMAIL_VALID_VALUE = "alain@gmaill.com";
     private const VALID_PASSWORD_VALUE = "@Password81";
-    /**
-     * @var object|ValidatorInterface|null
-     */
-    private ValidatorInterface $validator;
 
     public function setUp() : void
     {
@@ -79,22 +75,4 @@ class UserValidationEntityTest extends KernelTestCase
         $error = $this->getErrorValidation($user, 1);
         self::assertEquals(self::PASSWORD_REGEX_CONSTRAINT_MESSAGE, $error[0]->getMessage());
     }
-
-    /**
-     * @param User $user
-     * @param int $numberError
-     * @return ConstraintViolationList
-     */
-    private function getErrorValidation(User $user, int $numberError) : ConstraintViolationList
-    {
-        $errors = $this->validator->validate($user);
-        $messages = [];
-        foreach ($errors as $error) {
-            $messages[] = $error->getPropertyPath().' -> '. $error->getMessage()."\n";
-        }
-        self::assertCount($numberError, $errors, implode('', $messages));
-        return $errors;
-    }
-
-
 }
