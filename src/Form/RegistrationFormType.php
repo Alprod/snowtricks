@@ -38,17 +38,6 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'first_options'  => [
                     'label' => 'Mot de passe',
-                    'constraints' => [
-                        new Length([
-                            'min' => 8,
-                            'minMessage' => 'Votre mot de passe doit être composer au minimum de {{ limit }} caractères'
-                        ]),
-                        new Regex([
-                            'pattern' => '/^\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/i',
-                            'match' => true,
-                            'message' => 'Il vous faut au moins 1 chiffre, 1 majuscule, 1 minuscule et 1 caractère spécial'
-                        ])
-                    ]
                 ],
                 'second_options' => ['label' => 'Répéter le mot de pass'],
             ])

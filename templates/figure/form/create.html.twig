@@ -12,37 +12,35 @@
     <div class="mx-auto my-5 w-75">
     {{ form_start(formFigure) }}
             <div class="w-75 form-floating mb-4 m-auto">
-                {{ form_row(formFigure.title, {
-                    'attr':{
-                        'class': 'form-control'},
-                    'label': 'Titre',
-                    'label_attr': {
-                        'class': 'mb-1'
-                        }
-                    }
-                ) }}
+                {{ form_widget(formFigure.title, {'attr':{'class': 'form-control', 'placeholder': 'Titre'}}) }}
+                {{ form_label(formFigure.title, 'Titre') }}
+                <ul class="list-unstyled">
+                    {% for error in formFigure.title.vars.errors %}
+                        <li class="text-danger fst-italic fs-6">
+                            {{ error.message }}
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="w-75 form-floating mb-4 m-auto">
-                {{ form_row(formFigure.description, {
+                {{ form_widget(formFigure.description, {
                     'attr':{
-                        'rows': '10',
-                        'class': 'form-control mb-1'},
-                    'label': 'Description',
-                    'label_attr': {
-                        'class': 'mb-1 mt-3'}
+                        'class': 'form-control descriptionField',
+                        'placeholder' : 'Message...'}
                     }
                 ) }}
+                {{ form_label(formFigure.description, 'Description') }}
+                <ul class="list-unstyled">
+                    {% for error in formFigure.description.vars.errors %}
+                        <li class="text-danger fst-italic fs-6">
+                            {{ error.message }}
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="w-75 form-floating mb-4 m-auto">
-                {{ form_row(formFigure.category, {
-                    'attr':{
-                        'class': 'form-control'},
-                    'label': 'Catégorie',
-                    'label_attr': {
-                        'class': 'mb-1 mt-3'
-                    }
-                    }
-                ) }}
+                {{ form_widget(formFigure.category, {'attr':{ 'class': 'form-select', 'aria-label' : 'Selection des catégories' }}) }}
+                {{ form_label(formFigure.category, 'Categories') }}
             </div>
             <div class="d-grid gap-2 col-6 mx-auto mt-5">
                 <button type="submit" class="btn btn-outline-dark">
