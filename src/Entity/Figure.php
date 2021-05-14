@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\FigureRepository;
+use App\Tests\Entity\ErrorValidationTestTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FigureRepository::class)
@@ -21,11 +23,17 @@ class Figure
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="Veuillez saisir une valeur")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Indiquez une déscription de la figure")
+     * @Assert\Length(
+     *     min=50,
+     *     minMessage="Veuillez ecrire {{ limit }} caractères minimum"
+     * )
      */
     private $description;
 
