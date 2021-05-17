@@ -44,4 +44,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: [IS_AUTHENTICATED_FULLY,ROLE_ADMIN] }
-         - { path: ^/membre, roles: [IS_AUTHENTICATED_FULLY,ROLE_USER] }
+         - { path: ^/figure/new, roles: [IS_AUTHENTICATED_FULLY,ROLE_USER] }
+         - { path: ^/figure/\d+$/edit, roles: [IS_AUTHENTICATED_FULLY,ROLE_USER] }

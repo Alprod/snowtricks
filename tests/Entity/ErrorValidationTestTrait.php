@@ -23,7 +23,7 @@ trait ErrorValidationTestTrait
         $errors = $this->validator->validate($entity);
         $messages = [];
         foreach ($errors as $error) {
-            $messages[] = $error->getPropertyPath().' -> '. $error->getMessage()."\n";
+            $messages[] = 'Attention : '.ucfirst($error->getPropertyPath()).' => '. $error->getMessage()." | verifier vos constants \n";
         }
         self::assertCount($numberError, $errors, implode('', $messages));
         return $errors;
