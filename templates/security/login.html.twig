@@ -30,7 +30,7 @@
     <div class="d-flex flex-column align-items-center">
         <h1 class="h3 mb-4 mt-5 font-weight-normal">Veuillez vous connecter</h1>
         <div class="form-floating mb-3 w-50">
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Votre email" class="form-control {% if error %}is-invalid{% endif %}" required autofocus>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Votre email" class="form-control {% if error %}is-invalid{% endif %}" autofocus>
             <label for="inputEmail">Email</label>
         </div>
         <div class="form-floating mb-3 w-50">
@@ -38,6 +38,7 @@
             <label for="inputPassword">Password</label>
         </div>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="p-4"> <a href="{{ path('app_forgot_password_request') }}" class="link-dark">Mot de passe oublier</a> </div>
         <div class="checkbox mt-2">
             <label>
                 <input type="checkbox" name="_remember_me"> Se Souvenir de moi
