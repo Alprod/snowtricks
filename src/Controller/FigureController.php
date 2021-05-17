@@ -10,6 +10,7 @@ use App\Form\FigureType;
 use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +40,7 @@ class FigureController extends AbstractController
      * @Route("figure/new", name="figure_create", methods={"GET","POST"})
      * @Route("figure/{id}/edit", name="figure_edit", methods={"GET","POST"})
      * @noinspection PhpOptionalBeforeRequiredParametersInspection
+     * @IsGranted("ROLE_USER")
      */
     public function formFigure(Figure $figure = null ,Request $request,EntityManagerInterface $manager): Response
     {
@@ -101,8 +103,6 @@ class FigureController extends AbstractController
             'formDiscussion'=>$formDiscussion->createView()
         ]);
     }
-
-
 
     /**
      *@Route("figure/{id<\d+>}/delete", name="figure_delete")

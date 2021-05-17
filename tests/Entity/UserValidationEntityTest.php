@@ -13,7 +13,7 @@ class UserValidationEntityTest extends KernelTestCase
     private const EMAIL_CONSTRAINT_MESSAGE = "Désolé mais \"alain@gmail\" n'est pas valide";
     private const EMAIL_INVALID_VALUE = "alain@gmail";
     private const PASSWORD_REGEX_CONSTRAINT_MESSAGE = "Il vous faut au moins 1 chiffre, 1 majuscule, 1 minuscule et 1 caractère spécial";
-    private const EMAIL_VALID_VALUE = "alain@gmaill.com";
+    private const EMAIL_VALID_VALUE = "alain@gmail.com";
     private const VALID_PASSWORD_VALUE = "@Password81";
 
     public function setUp() : void

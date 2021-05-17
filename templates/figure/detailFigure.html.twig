@@ -30,7 +30,7 @@
                         <div class="card-img-overlay">
                             <h5 class="card-title fs-6">{{ image.title }}</h5>
                         </div>
-                    </div>
+                       </div>
                     {% if app.user and app.user.firstname == figuresId.author %}
                     <div class="d-grid gap-2 d-md-flex justify-content-md-center my-2">
                         <a href="{{ path('image_edit', {id: image.id, figure: idFigure}) }}" class="btn btn-outline-dark me-md-1 border border-0 fs-5"><i class="bi bi-pencil-square"></i></a>
