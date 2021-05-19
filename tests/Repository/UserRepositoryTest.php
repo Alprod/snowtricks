@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Entity\Repository;
+namespace App\Tests\Entity\Entity\Entity\Entity\Repository;
 
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -15,7 +15,7 @@ class UserRepositoryTest extends KernelTestCase
 
     public function testCountUsers(): void
     {
-        self::assertEquals(5, $this->getUser()->count([]));
+        self::assertEquals(6, $this->getUser()->count([]));
     }
 
 }
