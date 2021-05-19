@@ -9,12 +9,16 @@ class ResetPasswordControllerTest extends WebTestCase
 {
 	private const EMPTY_VALUE_EMAIL = '';
 	private const MESSAGE_VALUE_EMAIL_EMPTY = 'Veuillez entrer votre email';
+
 	private $client;
+
 	public function setUp() : void
 	{
 		$this->client = static::createClient();
 	}
-    public function testForgotPasswordUriIfExist(): void
+
+
+	public function testForgotPasswordUriIfExist(): void
     {
         $this->client->request('GET', '/reset-password/forgot-password');
         self::assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -33,4 +37,12 @@ class ResetPasswordControllerTest extends WebTestCase
     	$this->client->reload();
     	self::assertSelectorTextContains('li.text-danger', self::MESSAGE_VALUE_EMAIL_EMPTY);
     }
+
+	public function testRestPasswordUriIfExist()
+	{
+		$csrfToken = $this->client->getContainer()->get('security.csrf.token_manager')->getToken('change_password_form__token');
+		$this->client->request('GET', "/reset-password/reset/$csrfToken");
+		self::assertResponseStatusCodeSame(Response::HTTP_FOUND);
+    }
+
 }

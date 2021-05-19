@@ -12,11 +12,11 @@
             {{ form_label(resetForm.plainPassword.first, 'Nouveau mot de passe') }}
             <ul class="list-unstyled">
             {% for error in resetForm.plainPassword.first.vars.errors %}
-                <li class="text-danger fst-italic fs-6">
+                <li class="text-danger fst-italic fs-6 mt-2">
                     {{ error.message }}
                 </li>
-            </ul>
             {% endfor %}
+            </ul>
         </div>
         <div class="w-50 form-floating mb-4">
             {{ form_widget(resetForm.plainPassword.second, {'attr':{'class': 'form-control', 'placeholder': 'Nouveau mot de passe'}}) }}
