@@ -4,14 +4,14 @@
 
 {% block body %}
     {% for flashError in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError|trans }}</div>
+        <div class="alert alert-danger mt-5" role="alert">{{ flashError|trans }}</div>
     {% endfor %}
     <h1 class="h3 my-5 font-weight-normal text-center">Réinitialisez votre mot de passe</h1>
 
     {{ form_start(requestForm) }}
         <div class="d-flex flex-column align-items-center">
             <div class="w-50 form-floating mb-3">
-                {{ form_widget(requestForm.email,{'attr':{'class':'form-control', 'placeholder': 'Votre email'}}) }}
+                {{ form_widget(requestForm.email,{'attr':{'name':'email', 'class':'form-control', 'placeholder': 'Votre email'}}) }}
                 {{ form_label(requestForm.email, 'Email') }}
                 <ul class="list-unstyled">
                     {% for error in requestForm.email.vars.errors %}
