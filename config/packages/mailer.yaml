@@ -5,5 +5,4 @@ framework:
             X-Custom-Header: 'foobar'
         envelope:
             sender: 'alprod81@gmail.com'
-            recipients: ['alprod81@gmail.com']
         dsn: '%env(MAILER_DSN)%'
